@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:puretonyapp/screen/create_new_account.dart';
 import 'package:puretonyapp/utility/my_constant.dart';
 import 'package:puretonyapp/widgets/show_button.dart';
 import 'package:puretonyapp/widgets/show_form.dart';
@@ -37,7 +38,7 @@ class _AuthenState extends State<Authen> {
                 ButtonSignin(boxConstrains),
                 newforgot(),
                 newSignup(),
-                
+
               ],
             ),
           );
@@ -51,7 +52,9 @@ class _AuthenState extends State<Authen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ShowText(label: "Don't Have an Account?"),
-                  ShowTextButton(label: 'Sign Up', pressFunc: () {}),
+                  ShowTextButton(label: 'Sign Up', pressFunc: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateNewAccount(),));
+                  }),
                 ],
               );
   }

@@ -8,6 +8,7 @@ class MyConstant {
   static Color primary = const Color(0xffFF4D67);
   static Color dark = Colors.black;
   static Color light = const Color(0xffFF4D67);
+  static Color myWhite = Colors.white;
 
   TextStyle h1Style() => TextStyle(
         fontSize: 36,

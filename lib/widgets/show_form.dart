@@ -7,11 +7,13 @@ class ShowForm extends StatelessWidget {
   final String hide;
   final bool? obsecu;
   final Function()? redEyeFunc;
+  final IconData? iconData;
   const ShowForm({
     Key? key,
     required this.hide,
     this.obsecu,
     this.redEyeFunc,
+    this.iconData,
   }) : super(key: key);
 
   @override
@@ -21,8 +23,9 @@ class ShowForm extends StatelessWidget {
       child: TextFormField(
         obscureText: obsecu ?? false,
         decoration: InputDecoration(
+          hintText: hide,
           suffixIcon: redEyeFunc == null
-              ? const SizedBox()
+              ? iconData == null  ? const SizedBox() : Icon(iconData) 
               : IconButton(
                   onPressed: redEyeFunc,
                   icon: Icon(Icons.remove_red_eye_outlined),
