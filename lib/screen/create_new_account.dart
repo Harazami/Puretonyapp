@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:puretonyapp/utility/my_constant.dart';
 import 'package:puretonyapp/widgets/show_form.dart';
 import 'package:puretonyapp/widgets/show_icon_button.dart';
@@ -20,6 +21,31 @@ class _CreateNewAccountState extends State<CreateNewAccount> {
     'Other',
   ];
   String? gender;
+
+  @override
+  void initState() {
+    super.initState();
+    findPositions();
+    
+  }
+
+  Future<void> findPositions() async {
+
+    bool locationServiceEnable;
+    LocationPermission locationPermission;
+
+    locationServiceEnable = await Geolocator.isLocationServiceEnabled();
+
+    if (!locationServiceEnable) {
+      // If service Unenabled
+      print('If Service Unenabled');
+    } else {
+      // if Service enabled
+      print('if Service enabled');
+    }
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
