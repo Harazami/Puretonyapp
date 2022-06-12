@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:puretonyapp/utility/my_constant.dart';
+import 'package:puretonyapp/widgets/show_button.dart';
 import 'package:puretonyapp/widgets/show_form.dart';
 import 'package:puretonyapp/widgets/show_images.dart';
 import 'package:puretonyapp/widgets/show_text.dart';
+import 'package:puretonyapp/widgets/show_text_button.dart';
 import 'package:puretonyapp/widgets/show_title.dart';
 
 class Authen extends StatefulWidget {
@@ -14,32 +16,95 @@ class Authen extends StatefulWidget {
 
 class _AuthenState extends State<Authen> {
   bool redEye = true;
+  bool? remember = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            love_logo(),
-            new_app_name(),
-            ShowTitle(title: 'Email'),
-            ShowForm(
-              hide: 'Email',
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints boxConstrains) {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                love_logo(boxConstraints: boxConstrains),
+                new_app_name(),
+                const ShowTitle(title: 'Email'),
+                newemail(),
+                const ShowTitle(title: 'Password'),
+                newPassword(),
+                newRemember(context),
+                ButtonSignin(boxConstrains),
+                newforgot(),
+                newSignup(),
+                
+              ],
             ),
-            ShowTitle(title: 'Password'),
-            ShowForm(
-              hide: 'Password',
-              obsecu: redEye,
-              redEyeFunc: () {
-                setState(() {
-                  redEye = !redEye;
-                });
-              },
-            ),
-          ],
-        ),
+          );
+        }),
       ),
+    );
+  }
+
+  Row newSignup() {
+    return Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ShowText(label: "Don't Have an Account?"),
+                  ShowTextButton(label: 'Sign Up', pressFunc: () {}),
+                ],
+              );
+  }
+
+  ShowTextButton newforgot() =>
+      ShowTextButton(label: 'Forgot the Passwor?', pressFunc: () {});
+
+  Container ButtonSignin(BoxConstraints boxConstrains) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      width: boxConstrains.maxWidth,
+      child: ShowButton(
+        label: 'Sign In',
+        pressFunc: () {},
+      ),
+    );
+  }
+
+  Theme newRemember(BuildContext context) {
+    return Theme(
+        data: Theme.of(context).copyWith(
+          unselectedWidgetColor: MyConstant.primary,
+        ),
+        child: CheckboxListTile(
+            activeColor: MyConstant.primary,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: ShowText(
+              label: 'Remember me',
+              textStyle: MyConstant().h3ActiveStyle(),
+            ),
+            value: remember,
+            onChanged: (value) {
+              setState(() {
+                remember = value;
+              });
+            }));
+  }
+
+  ShowForm newPassword() {
+    return ShowForm(
+      hide: 'Password',
+      obsecu: redEye,
+      redEyeFunc: () {
+        setState(() {
+          redEye = !redEye;
+        });
+      },
+    );
+  }
+
+  ShowForm newemail() {
+    return ShowForm(
+      hide: 'Email',
     );
   }
 
@@ -50,9 +115,10 @@ class _AuthenState extends State<Authen> {
     );
   }
 
-  SizedBox love_logo() {
-    return SizedBox(
-        width: 200,
+  Container love_logo({required BoxConstraints boxConstraints}) {
+    return Container(
+        margin: const EdgeInsets.only(top: 32, bottom: 8),
+        width: boxConstraints.maxWidth * 0.35,
         child: ShowImage(
           path: 'images/iconlove1.png',
         ));
